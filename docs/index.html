@@ -94,102 +94,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="安装-部署"><a href="#安装-部署" class="headerlink" title="安装/部署"></a>安装/部署</h2><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><ol>
-<li>文档三要素 index，type(虽然type不一样但文档尽量相似)，id(可以自定义或者由es定义)</li>
-</ol>
-<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ol>
-<li>映射：描述数据在每个字段内如何存储</li>
-<li>分析：全文如何处理使之可以被搜索</li>
-<li>领域特定查询语句：</li>
-</ol>
-<ul>
-<li> 空搜索    _search</li>
-<li> 多索引  /index1(*),index2(*)/type1,type2/_search</li>
-<li> 分页 _search?size=每页数量&amp;from=跳过的位置</li>
-<li>_all 搜索  将所有字段拼到一起成为一个字段（string）</li>
-</ul>
-<h3 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h3><ol>
-<li>_analyze</li>
-</ol>
-<h3 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h3><ol>
-<li>基本语法</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;:&#123;</span><br><span class="line">		&quot;match&quot;:&#123;</span><br><span class="line">			&quot;&quot;:&quot;&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>全文搜索 match 使用分词器</li>
-<li>匹配所有文档 match_all </li>
-<li>multi_match 多个字段执行相同的match查询</li>
-<li> range 指定区间的数字或者时间 gt，gte，lt，lte</li>
-<li> term 精确匹配，数字，时间，boolean或者not_analyzed（不使用分词器）</li>
-<li>terms 指定多字段匹配</li>
-<li> exists 字段中有值</li>
-<li>missing 字段中无值</li>
-<li>短语搜索 match_phrase 匹配短语</li>
-<li>高亮搜索</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;:&#123;&#125;</span><br><span class="line">	&quot;highlight&quot;:&#123;</span><br><span class="line">		&quot;fields&quot;:&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="查询类型"><a href="#查询类型" class="headerlink" title="查询类型"></a>查询类型</h4><ol>
-<li>叶子语句：被用于将查询字符串和一个字段对比</li>
-<li> 复合语句：合并其他查询 </li>
-</ol>
-<h4 id="组合查询-bool-constant-score"><a href="#组合查询-bool-constant-score" class="headerlink" title="组合查询 bool constant_score"></a>组合查询 bool constant_score</h4><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul>
-<li>bool</li>
-<li>constant_score 将不变的常量评分用于所有匹配的文档</li>
-</ul>
-<h5 id="查询类型-1"><a href="#查询类型-1" class="headerlink" title="查询类型"></a>查询类型</h5><ol>
-<li>must 必须匹配</li>
-<li>must_not 必须不匹配</li>
-<li>should 如果满足增加score</li>
-<li>filter 必须匹配</li>
-</ol>
-<h3 id="验证查询语句是否合法"><a href="#验证查询语句是否合法" class="headerlink" title="验证查询语句是否合法"></a>验证查询语句是否合法</h3><ol>
-<li>验证查询 _avlidate</li>
-<li>理解错误 _explain</li>
-</ol>
-<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><ol>
-<li><p>单字段排序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;sort&quot;:&#123;&quot;&quot;:&#123;&quot;order&quot;:&quot;desc&quot;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>多级排序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;sort&quot;:[</span><br><span class="line">	&#123;&quot;&quot;:&#123;&#125;&#125;,</span><br><span class="line">	&#123;&quot;&quot;:&#123;&#125;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><p>多值排序（字段中含有多个数值），多值变为单值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;sort&quot;:&#123;</span><br><span class="line">	&quot;&quot;:&#123;</span><br><span class="line">		&quot;order&quot;:&quot;asc&quot;,</span><br><span class="line">		&quot;mode&quot;:&quot;min/max/avg/sum&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><h3 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h3><ol>
-<li><p>桶(bucks) 满足特定条件的文档集合</p>
-</li>
-<li><p>指标(metrics) 对桶内的文档进行统计的计算</p>
-</li>
-<li><p>基本语法</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;agg&quot;:&#123;</span><br><span class="line">		&quot;all_interests&quot;:&#123;</span><br><span class="line">			&quot;terms&quot;:&#123;</span><br><span class="line">				&quot;field&quot;:&quot;&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="文档的基本操作"><a href="#文档的基本操作" class="headerlink" title="文档的基本操作"></a>文档的基本操作</h2><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ol>
-<li> put /index/type/</li>
-</ol>
-<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><ol>
-<li>全部更新 post /index/</li>
-<li>版本控制：通过版本号，乐观锁的方式，当前版本号与es中版本号一致，或者大于可以更新。</li>
-<li>部分更新</li>
-<li>使用脚本更新</li>
-</ol>
-<h4 id="取回"><a href="#取回" class="headerlink" title="取回"></a>取回</h4><ol>
-<li>取回单个 get /index/type/id</li>
-<li>取回多个 /_mget</li>
-</ol>
-<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><ol>
-<li>delete </li>
-</ol>
-<h4 id="bulk"><a href="#bulk" class="headerlink" title="bulk"></a>bulk</h4><ol>
-<li>/_bulk<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">post /_bulk</span><br><span class="line">&#123;</span><br><span class="line"> &#123;&quot;delete&quot;:&#123;&#125;&#125;</span><br><span class="line"> &#123;&quot;create&quot;:&#123;&#125;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-
+        ES的使用，介绍ES的基本概念，安装，搭建，使用，以及一些实践
+        
+          <p class="article-more-link">
+            <a href="/2021/11/22/es/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -231,21 +141,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ol>
-<li>虚拟DOM</li>
-</ol>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
-<li>node</li>
-<li>webpack</li>
-<li>react</li>
-<li>react-dom</li>
-</ol>
-<h3 id="搭建项目"><a href="#搭建项目" class="headerlink" title="搭建项目"></a>搭建项目</h3><ol>
-<li>npm init </li>
-<li>配置</li>
-<li>运行</li>
-</ol>
-
+        React的框架介绍，一些基本概念，安装，实践
+        
+          <p class="article-more-link">
+            <a href="/2021/11/22/react/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -287,24 +188,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><ol>
-<li>底层实现：数组+链表/红黑树(链表超过8个，转为红黑树)</li>
-</ol>
-<h2 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h2><ol>
-<li>本质：匿名函数</li>
-<li>组成：参数列表，-&gt;，函数体，函数体可以是表达式也可以是语句块</li>
-<li>Example</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Player&gt; players</span></span><br><span class="line"><span class="function"><span class="title">for</span> <span class="params">(Player p:players)</span></span>&#123;</span><br><span class="line">	System.out.print(p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">players.forEach(p-&gt;System.out.println(p))</span><br><span class="line">players.forEach(System.out::println)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="JDK8-新特性"><a href="#JDK8-新特性" class="headerlink" title="JDK8 新特性"></a>JDK8 新特性</h2><ol>
-<li>时间函数</li>
-<li>Predicate</li>
-<li>Function</li>
-</ol>
-
+        Java的一些简单知识
+        
+          <p class="article-more-link">
+            <a href="/2021/11/22/java-baseic/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
