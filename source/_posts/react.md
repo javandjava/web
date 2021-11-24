@@ -1,6 +1,8 @@
 ---
 title: react
+excerpt: React的框架介绍，一些基本概念，安装，实践
 date: 2021-11-22 11:04:45
+comments: true
 tags: 
   - React
   - 前端

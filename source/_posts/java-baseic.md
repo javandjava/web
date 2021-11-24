@@ -1,5 +1,6 @@
 ---
 title: Java基本知识
+excerpt: Java的一些简单知识
 date: 2021-11-22 10:52:07
 tags: Java
 categories: Java
