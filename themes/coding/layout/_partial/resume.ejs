@@ -8,6 +8,20 @@
         <%- page.jobtitle %>
       </div>
     </div>
+    <div id="contact" class="contact">
+      <% for(i in page.resume.contact) {%>
+      <% var item=page.resume.contact[i] %>
+      <div class="contact-item">
+        <% if(item.link) {%>
+          <a href="<%- item.link %>">
+        <% } %>
+        <i class="fa <%- item.icon %> aria-hidden="true></i> <%- item.text %>
+        <% if(item.link) {%>
+          </a>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
   </resume-header>
 
  </div>
